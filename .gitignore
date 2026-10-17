@@ -1,0 +1,41 @@
+# Środowiska wirtualne
+.venv/
+venv/
+env/
+
+# Bajtkod i cache Pythona
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Budowanie pakietów
+build/
+dist/
+*.egg-info/
+
+# Sekrety i konfiguracja lokalna
+.env
+.env.*
+!.env.example
+
+# PyCharm / JetBrains
+.idea/
+
+# VS Code
+.vscode/
+
+# Testy i pokrycie
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# System
+.DS_Store
+Thumbs.db
+
+# Logi i pobrane dane
+*.log
