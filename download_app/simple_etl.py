@@ -9,7 +9,6 @@ logging.basicConfig(level=logging.DEBUG)
 
 MISSING = "-"
 
-
 class SimpleETL:
 
     def __init__(self, input_path, output_dir=None, delimiter=","):
@@ -32,6 +31,7 @@ class SimpleETL:
 
     def transform(self, rows):
         """Zwraca generator wyników dla wierszy, których kolumna 0 jest liczbą."""
+        """Sprawdza czy lista zaczyna się od indeksu liczby całkowitej."""
         data_rows = (row for row in rows if row[0].lstrip("-").isdigit())
         return (self._process_row(row) for row in data_rows)
 
@@ -44,7 +44,9 @@ class SimpleETL:
             raise exceptions.DataFormatError(
                 f"Niepoprawna wartość w wierszu {number}: {e}"
             ) from e
-        missing = [i for i, c in enumerate(cells, start=1) if c == MISSING]
+
+        """Zapisanie pozycji brakujących danych. Liczenie od 1 zamiast zera."""
+        missing = [column_number for column_number, cell in enumerate(cells, start=1) if cell == MISSING]
         total = sum(values)
         mean = total / len(values) if values else None
         logging.debug(f"Obliczone wartośći: row: {row}, number: {number}, total: {total}, mean: {mean}, missing: {missing}")
